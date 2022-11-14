@@ -1,7 +1,7 @@
 const axios = require(`axios`);
 const Mavlina = require("../Mavlina");
 const wyr = require("./wyr");
-class nhei extends wyr {
+class nhie extends wyr {
 
     async nhei(type){
         if(typeof type !== 'string') throw new Error("Type method must be in string")
@@ -12,7 +12,7 @@ class nhei extends wyr {
                
                 const options = {
                     method: 'GET',
-                    url: `https://mavlina-api.sazgal.repl.co/api/nhei?type=${type}`,
+                    url: `https://mavlina-api.sazgal.repl.co/api/nhie?type=${type}`,
                   };
                   const ax = await axios.request(options)
                   return ax.data
@@ -22,4 +22,4 @@ class nhei extends wyr {
         }
 }
 
-module.exports = nhei;
+module.exports = nhie;
