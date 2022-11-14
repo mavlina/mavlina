@@ -7,7 +7,7 @@ class wyr extends tnd {
         try {
         const options = {
             method: 'GET',
-            url: `https://mavlina-api.sazgal.repl.co/api/wyrs`,
+            url: `https://mavlina-api.sazgal.repl.co/api/wyr`,
           };
           const ax = await axios.request(options)
           return ax.data
