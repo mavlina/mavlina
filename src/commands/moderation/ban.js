@@ -1,4 +1,5 @@
 const { PermissionsBitField } = require('discord.js');
+const { log } = require('../../utils/modlog');
 
 module.exports = {
     name: 'ban',
@@ -17,7 +18,7 @@ module.exports = {
             required: false,
         },
     ],
-    execute(interactionOrMessage) {
+    async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
             return interactionOrMessage.reply({ content: 'You do not have permission to ban members.', ephemeral: true });
@@ -36,13 +37,17 @@ module.exports = {
             return interactionOrMessage.reply({ content: 'I cannot ban that user.', ephemeral: true });
         }
 
-        interactionOrMessage.guild.bans.create(userToBan, { reason })
-            .then(() => {
-                interactionOrMessage.reply({ content: `${userToBan.tag} has been banned for: ${reason}` });
-            })
-            .catch(error => {
-                console.error(error);
-                interactionOrMessage.reply({ content: 'There was an error trying to ban that user.', ephemeral: true });
-            });
+        try {
+            await interactionOrMessage.guild.bans.create(userToBan, { reason });
+            interactionOrMessage.reply({ content: `${userToBan.tag} has been banned for: ${reason}` });
+            await log(interactionOrMessage.client, interactionOrMessage.guild, 'User Banned', [
+                { name: 'User', value: userToBan.tag },
+                { name: 'Moderator', value: interactionOrMessage.user.tag },
+                { name: 'Reason', value: reason },
+            ]);
+        } catch (error) {
+            console.error(error);
+            interactionOrMessage.reply({ content: 'There was an error trying to ban that user.', ephemeral: true });
+        }
     },
 };

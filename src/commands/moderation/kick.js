@@ -1,4 +1,5 @@
 const { PermissionsBitField } = require('discord.js');
+const { log } = require('../../utils/modlog');
 
 module.exports = {
     name: 'kick',
@@ -17,7 +18,7 @@ module.exports = {
             required: false,
         },
     ],
-    execute(interactionOrMessage) {
+    async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
             return interactionOrMessage.reply({ content: 'You do not have permission to kick members.', ephemeral: true });
@@ -40,13 +41,17 @@ module.exports = {
             return interactionOrMessage.reply({ content: 'I cannot kick that user.', ephemeral: true });
         }
 
-        memberToKick.kick(reason)
-            .then(() => {
-                interactionOrMessage.reply({ content: `${userToKick.tag} has been kicked for: ${reason}` });
-            })
-            .catch(error => {
-                console.error(error);
-                interactionOrMessage.reply({ content: 'There was an error trying to kick that user.', ephemeral: true });
-            });
+        try {
+            await memberToKick.kick(reason);
+            interactionOrMessage.reply({ content: `${userToKick.tag} has been kicked for: ${reason}` });
+            await log(interactionOrMessage.client, interactionOrMessage.guild, 'User Kicked', [
+                { name: 'User', value: userToKick.tag },
+                { name: 'Moderator', value: interactionOrMessage.user.tag },
+                { name: 'Reason', value: reason },
+            ]);
+        } catch (error) {
+            console.error(error);
+            interactionOrMessage.reply({ content: 'There was an error trying to kick that user.', ephemeral: true });
+        }
     },
 };

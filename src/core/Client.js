@@ -14,7 +14,7 @@ class BotClient extends Client {
 
         this.commandHandler = new CommandHandler();
         this.eventHandler = new EventHandler(this);
-        this.eventHandler.loadEvents();
+        
     }
 
     start() {

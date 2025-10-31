@@ -18,6 +18,7 @@ Mavlina is a powerful and flexible Discord bot built with Node.js and the discor
 
 *   [Node.js](https://nodejs.org/) (v16.9.0 or higher)
 *   A Discord Bot Token. You can get one from the [Discord Developer Portal](https://discord.com/developers/applications).
+*   A MongoDB database.
 
 ### Installation
 
@@ -30,19 +31,32 @@ Mavlina is a powerful and flexible Discord bot built with Node.js and the discor
     ```bash
     npm install
     ```
-3.  **Create a `.env` file:**
-    Create a `.env` file in the root of the project and add your bot token:
-    ```
-    TOKEN=your_bot_token
-    ```
+3.  **Set up the database:**
+    *   Create a `.env` file in the root of the project.
+    *   Add your bot token and MongoDB connection string to the `.env` file:
+        ```
+        TOKEN=your_bot_token
+        DATABASE_URL="your_mongodb_connection_string"
+        ```
+    *   Generate the Prisma client:
+        ```bash
+        npx prisma generate
+        ```
 4.  **Run the bot:**
     ```bash
     node src/index.js
     ```
 
-## Usage
+## Configuration
 
-The bot uses `/` for slash commands and `!` for prefix commands.
+This bot is designed to be configurable per server.
+
+### Admin Commands
+
+*   `/setup mutedrole`: Creates and configures the "Muted" role for the mute command.
+*   `/settings modlogchannel <channel>`: Sets the channel for moderation logs.
+*   `/settings mutedrole <role>`: Sets the role to be used for the mute command.
+
 
 ### General Commands
 

@@ -1,0 +1,25 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Guild {
+  id            String    @id @map("_id")
+  modLogChannel String?
+  mutedRole     String?
+  warnings      Warning[]
+}
+
+model Warning {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  guild       Guild    @relation(fields: [guildId], references: [id])
+  guildId     String
+  userId      String
+  moderatorId String
+  reason      String
+  createdAt   DateTime @default(now())
+}
