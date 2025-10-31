@@ -32,7 +32,10 @@ module.exports = {
             .setDescription(`Total warnings: ${userWarnings.length}`);
 
         userWarnings.forEach((warning, index) => {
-            embed.addFields({ name: `Warning ${index + 1}`, value: `**Reason:** ${warning.reason}\n**Moderator:** <@${warning.moderatorId}>\n**Date:** ${warning.createdAt.toLocaleDateString()}` });
+            embed.addFields({
+                name: `Warning ${index + 1}`,
+                value: `**Reason:** ${warning.reason}\n**Moderator:** <@${warning.moderatorId}>\n**Date:** ${warning.createdAt.toLocaleDateString()}`,
+            });
         });
 
         interactionOrMessage.reply({ embeds: [embed] });

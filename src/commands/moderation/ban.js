@@ -21,11 +21,14 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-            return interactionOrMessage.reply({ content: 'You do not have permission to ban members.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You do not have permission to ban members.',
+                ephemeral: true,
+            });
         }
 
         const userToBan = interactionOrMessage.options.getUser('user');
-        const reason = interactionOrMessage.options.getString('reason') || 'No reason provided';
+        const reason = `[Moderator: ${interactionOrMessage.user.tag}] ${interactionOrMessage.options.getString('reason') || `[Moderator: ${interactionOrMessage.user.tag}] 'No reason provided'`}`;
 
         if (!userToBan) {
             return interactionOrMessage.reply({ content: 'Please specify a user to ban.', ephemeral: true });

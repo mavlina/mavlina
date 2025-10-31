@@ -9,11 +9,7 @@ async function log(client, guild, title, fields) {
     const logChannel = await client.channels.fetch(modLogChannelId).catch(() => null);
     if (!logChannel) return;
 
-    const embed = new EmbedBuilder()
-        .setColor('#ff0000')
-        .setTitle(title)
-        .addFields(fields)
-        .setTimestamp();
+    const embed = new EmbedBuilder().setColor('#ff0000').setTitle(title).addFields(fields).setTimestamp();
 
     logChannel.send({ embeds: [embed] });
 }

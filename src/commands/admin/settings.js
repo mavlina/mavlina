@@ -35,7 +35,10 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return interactionOrMessage.reply({ content: 'You must be an administrator to use this command.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You must be an administrator to use this command.',
+                ephemeral: true,
+            });
         }
 
         const subcommand = interactionOrMessage.options.getSubcommand();

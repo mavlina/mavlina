@@ -29,7 +29,7 @@ module.exports = {
                 .addFields(
                     { name: 'Definition', value: definition.definition.substring(0, 1024) },
                     { name: 'Example', value: definition.example.substring(0, 1024) },
-                    { name: 'Rating', value: `${definition.thumbs_up} 👍 | ${definition.thumbs_down} 👎` }
+                    { name: 'Rating', value: `${definition.thumbs_up} 👍 | ${definition.thumbs_down} 👎` },
                 );
 
             interactionOrMessage.reply({ embeds: [embed] });

@@ -21,11 +21,14 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
-            return interactionOrMessage.reply({ content: 'You do not have permission to kick members.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You do not have permission to kick members.',
+                ephemeral: true,
+            });
         }
 
         const userToKick = interactionOrMessage.options.getUser('user');
-        const reason = interactionOrMessage.options.getString('reason') || 'No reason provided';
+        const reason = `[Moderator: ${interactionOrMessage.user.tag}] ${interactionOrMessage.options.getString('reason') || 'No reason provided'}`;
 
         if (!userToKick) {
             return interactionOrMessage.reply({ content: 'Please specify a user to kick.', ephemeral: true });

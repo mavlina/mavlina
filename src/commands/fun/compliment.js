@@ -1,9 +1,9 @@
 const compliments = [
-    'You\'re an awesome friend.',
-    'You\'re a gift to those around you.',
-    'You\'re a smart cookie.',
+    "You're an awesome friend.",
+    "You're a gift to those around you.",
+    "You're a smart cookie.",
     'You have a great sense of humor.',
-    'You\'re more helpful than you realize.',
+    "You're more helpful than you realize.",
 ];
 
 module.exports = {

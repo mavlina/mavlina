@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { getGuildSettings } = require('../utils/guild');
 
 class CommandHandler {
     constructor() {
@@ -30,7 +31,7 @@ class CommandHandler {
     }
 
     async registerSlashCommands(client) {
-        const commands = Array.from(this.commands.values()).map(cmd => ({
+        const commands = Array.from(this.commands.values()).map((cmd) => ({
             name: cmd.name,
             description: cmd.description,
             options: cmd.options || [],
@@ -44,12 +45,17 @@ class CommandHandler {
         }
     }
 
-    handleInteraction(interaction) {
+    async handleInteraction(interaction) {
         if (!interaction.isCommand()) return;
 
         const command = this.commands.get(interaction.commandName);
 
         if (!command) return;
+
+        const settings = await getGuildSettings(interaction.guild.id);
+        if (settings.disabledModules.includes(command.category) || settings.disabledCommands.includes(command.name)) {
+            return interaction.reply({ content: 'This command is disabled on this server.', ephemeral: true });
+        }
 
         try {
             command.execute(interaction);
@@ -59,7 +65,7 @@ class CommandHandler {
         }
     }
 
-    handleMessage(message) {
+    async handleMessage(message) {
         if (!message.content.startsWith(this.prefix) || message.author.bot) return;
 
         const args = message.content.slice(this.prefix.length).trim().split(/ +/);
@@ -68,6 +74,11 @@ class CommandHandler {
         const command = this.commands.get(commandName);
 
         if (!command) return;
+
+        const settings = await getGuildSettings(message.guild.id);
+        if (settings.disabledModules.includes(command.category) || settings.disabledCommands.includes(command.name)) {
+            return message.reply({ content: 'This command is disabled on this server.' });
+        }
 
         try {
             command.execute(message);

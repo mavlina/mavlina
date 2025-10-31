@@ -16,7 +16,10 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.MuteMembers)) {
-            return interactionOrMessage.reply({ content: 'You do not have permission to unmute members.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You do not have permission to unmute members.',
+                ephemeral: true,
+            });
         }
 
         const userToUnmute = interactionOrMessage.options.getUser('user');
@@ -29,12 +32,18 @@ module.exports = {
         const settings = await getGuildSettings(interactionOrMessage.guild.id);
         const mutedRoleId = settings.mutedRole;
         if (!mutedRoleId) {
-            return interactionOrMessage.reply({ content: 'The muted role is not configured for this server.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'The muted role is not configured for this server.',
+                ephemeral: true,
+            });
         }
 
         const mutedRole = interactionOrMessage.guild.roles.cache.get(mutedRoleId);
         if (!mutedRole) {
-            return interactionOrMessage.reply({ content: 'The configured muted role could not be found.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'The configured muted role could not be found.',
+                ephemeral: true,
+            });
         }
 
         try {

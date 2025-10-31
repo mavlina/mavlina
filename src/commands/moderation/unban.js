@@ -15,7 +15,10 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.BanMembers)) {
-            return interactionOrMessage.reply({ content: 'You do not have permission to unban members.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You do not have permission to unban members.',
+                ephemeral: true,
+            });
         }
 
         const userId = interactionOrMessage.options.getString('userid');
@@ -29,7 +32,10 @@ module.exports = {
             ]);
         } catch (error) {
             console.error(error);
-            interactionOrMessage.reply({ content: 'Could not unban the user. Make sure the user ID is correct and the user is banned.', ephemeral: true });
+            interactionOrMessage.reply({
+                content: 'Could not unban the user. Make sure the user ID is correct and the user is banned.',
+                ephemeral: true,
+            });
         }
     },
 };

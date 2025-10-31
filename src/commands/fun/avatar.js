@@ -2,7 +2,7 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'avatar',
-    description: 'Displays a user\'s avatar.',
+    description: "Displays a user's avatar.",
     options: [
         {
             name: 'user',

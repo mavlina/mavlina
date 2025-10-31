@@ -1,9 +1,9 @@
 const insults = [
-    'You\'re the reason the gene pool needs a lifeguard.',
-    'If I had a face like yours, I\'d sue my parents.',
-    'I\'ve seen people like you before, but I had to pay an admission fee.',
-    'You\'re so dense, light bends around you.',
-    'You\'re not pretty enough to be that dumb.',
+    "You're the reason the gene pool needs a lifeguard.",
+    "If I had a face like yours, I'd sue my parents.",
+    "I've seen people like you before, but I had to pay an admission fee.",
+    "You're so dense, light bends around you.",
+    "You're not pretty enough to be that dumb.",
 ];
 
 module.exports = {

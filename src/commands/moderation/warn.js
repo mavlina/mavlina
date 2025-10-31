@@ -22,7 +22,10 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
-            return interactionOrMessage.reply({ content: 'You do not have permission to warn members.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You do not have permission to warn members.',
+                ephemeral: true,
+            });
         }
 
         const userToWarn = interactionOrMessage.options.getUser('user');

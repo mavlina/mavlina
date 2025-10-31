@@ -51,7 +51,13 @@ Mavlina is a powerful and flexible Discord bot built with Node.js and the discor
 
 This bot is designed to be configurable per server.
 
-### Admin Commands
+### Modules Command
+
+*   `/modules on <module>`: Enables a command module.
+*   `/modules off <module>`: Disables a command module.
+*   `/modules enable <command>`: Enables a single command.
+*   `/modules disable <command>`: Disables a single command.
+*   `/modules status`: Shows the current status of all modules and commands.
 
 *   `/setup mutedrole`: Creates and configures the "Muted" role for the mute command.
 *   `/settings modlogchannel <channel>`: Sets the channel for moderation logs.

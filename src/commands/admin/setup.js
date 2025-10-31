@@ -14,14 +14,17 @@ module.exports = {
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
         if (!member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-            return interactionOrMessage.reply({ content: 'You must be an administrator to use this command.', ephemeral: true });
+            return interactionOrMessage.reply({
+                content: 'You must be an administrator to use this command.',
+                ephemeral: true,
+            });
         }
 
         const subcommand = interactionOrMessage.options.getSubcommand();
 
         if (subcommand === 'mutedrole') {
             const guild = interactionOrMessage.guild;
-            let mutedRole = guild.roles.cache.find(role => role.name === 'Muted');
+            let mutedRole = guild.roles.cache.find((role) => role.name === 'Muted');
 
             try {
                 if (!mutedRole) {
@@ -48,7 +51,10 @@ module.exports = {
                 interactionOrMessage.reply({ content: 'Successfully configured the "Muted" role.' });
             } catch (error) {
                 console.error(error);
-                interactionOrMessage.reply({ content: 'There was an error configuring the "Muted" role.', ephemeral: true });
+                interactionOrMessage.reply({
+                    content: 'There was an error configuring the "Muted" role.',
+                    ephemeral: true,
+                });
             }
         }
     },

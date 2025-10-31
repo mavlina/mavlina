@@ -12,7 +12,9 @@ module.exports = {
         },
     ],
     execute(interactionOrMessage) {
-        const user = interactionOrMessage.options ? interactionOrMessage.options.getUser('user') || interactionOrMessage.user : interactionOrMessage.author;
+        const user = interactionOrMessage.options
+            ? interactionOrMessage.options.getUser('user') || interactionOrMessage.user
+            : interactionOrMessage.author;
         const member = interactionOrMessage.guild.members.cache.get(user.id);
 
         const embed = new EmbedBuilder()
@@ -24,7 +26,7 @@ module.exports = {
                 { name: 'ID', value: user.id, inline: true },
                 { name: 'Joined Server', value: member.joinedAt.toLocaleDateString(), inline: true },
                 { name: 'Account Created', value: user.createdAt.toLocaleDateString(), inline: true },
-                { name: 'Roles', value: member.roles.cache.map(role => role.name).join(', '), inline: false },
+                { name: 'Roles', value: member.roles.cache.map((role) => role.name).join(', '), inline: false },
             )
             .setTimestamp();
 

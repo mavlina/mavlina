@@ -19,6 +19,8 @@ module.exports = {
         const user1 = interactionOrMessage.options.getUser('user1');
         const user2 = interactionOrMessage.options.getUser('user2');
         const percentage = Math.floor(Math.random() * 101);
-        interactionOrMessage.reply(`**${user1.username}** and **${user2.username}** are **${percentage}%** compatible!`);
+        interactionOrMessage.reply(
+            `**${user1.username}** and **${user2.username}** are **${percentage}%** compatible!`,
+        );
     },
 };

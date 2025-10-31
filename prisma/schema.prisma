@@ -8,10 +8,12 @@ generator client {
 }
 
 model Guild {
-  id            String    @id @map("_id")
-  modLogChannel String?
-  mutedRole     String?
-  warnings      Warning[]
+  id               String    @id @map("_id")
+  modLogChannel    String?
+  mutedRole        String?
+  warnings         Warning[]
+  disabledModules  String[]
+  disabledCommands String[]
 }
 
 model Warning {
