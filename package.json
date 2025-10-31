@@ -1,0 +1,25 @@
+{
+  "name": "mavlina",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mavlina/mavlina.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mavlina/mavlina/issues"
+  },
+  "homepage": "https://github.com/mavlina/mavlina#readme",
+  "dependencies": {
+    "discord.js": "^14.24.2",
+    "dotenv": "^17.2.3"
+  }
+}
