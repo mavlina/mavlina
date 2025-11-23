@@ -15,12 +15,15 @@ module.exports = {
             required: true,
         },
     ],
-    execute(interactionOrMessage) {
-        const user1 = interactionOrMessage.options.getUser('user1');
-        const user2 = interactionOrMessage.options.getUser('user2');
+    execute(interactionOrMessage, args) {
+        const user1 = interactionOrMessage.options ? interactionOrMessage.options.getUser('user1') : interactionOrMessage.mentions.users.first();
+        const user2 = interactionOrMessage.options ? interactionOrMessage.options.getUser('user2') : interactionOrMessage.mentions.users.last();
+
+        if (!user1 || !user2) {
+            return interactionOrMessage.reply({ content: 'Please mention two users to ship.', ephemeral: true });
+        }
+
         const percentage = Math.floor(Math.random() * 101);
-        interactionOrMessage.reply(
-            `**${user1.username}** and **${user2.username}** are **${percentage}%** compatible!`,
-        );
-    },
+        interactionOrMessage.reply(`**${user1.username}** and **${user2.username}** are **${percentage}%** compatible!`);
+    }
 };

@@ -12,16 +12,17 @@ module.exports = {
         },
     ],
     async execute(interactionOrMessage) {
+        await interactionOrMessage.deferReply();
         const user = interactionOrMessage.options.getUser('user');
         try {
             const { url } = await get('https://api.waifu.pics/sfw/hug');
-            interactionOrMessage.reply({
+            interactionOrMessage.editReply({
                 content: `${interactionOrMessage.user} hugs ${user}! `,
                 files: [url],
             });
         } catch (error) {
             console.error(error);
-            interactionOrMessage.reply({ content: `${interactionOrMessage.user} hugs ${user}!`, ephemeral: true });
+            interactionOrMessage.editReply({ content: `${interactionOrMessage.user} hugs ${user}!` });
         }
     },
 };

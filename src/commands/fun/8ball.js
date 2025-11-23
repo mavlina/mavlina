@@ -32,8 +32,8 @@ module.exports = {
             required: true,
         },
     ],
-    execute(interactionOrMessage) {
-        const question = interactionOrMessage.options.getString('question');
+    execute(interactionOrMessage, args) {
+        const question = interactionOrMessage.options ? interactionOrMessage.options.getString('question') : args.join(' ');
         const response = responses[Math.floor(Math.random() * responses.length)];
         interactionOrMessage.reply(`**Question:** ${question}\n**Answer:** ${response}`);
     },

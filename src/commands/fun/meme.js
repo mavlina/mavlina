@@ -4,12 +4,13 @@ module.exports = {
     name: 'meme',
     description: 'Sends a random meme.',
     async execute(interactionOrMessage) {
+        await interactionOrMessage.deferReply();
         try {
             const meme = await get('https://meme-api.com/gimme');
-            interactionOrMessage.reply({ files: [meme.url] });
+            interactionOrMessage.editReply({ files: [meme.url] });
         } catch (error) {
             console.error(error);
-            interactionOrMessage.reply({ content: 'Could not fetch a meme at this time.', ephemeral: true });
+            interactionOrMessage.editReply({ content: 'Could not fetch a meme at this time.' });
         }
     },
 };

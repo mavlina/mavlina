@@ -9,9 +9,11 @@ module.exports = {
             required: true,
         },
     ],
-    execute(interactionOrMessage) {
-        const message = interactionOrMessage.options.getString('message');
+    execute(interactionOrMessage, args) {
+        const message = interactionOrMessage.options ? interactionOrMessage.options.getString('message') : args.join(' ');
         interactionOrMessage.channel.send(message);
-        interactionOrMessage.reply({ content: 'Message sent!', ephemeral: true });
+        if (interactionOrMessage.options) {
+            interactionOrMessage.reply({ content: 'Message sent!', ephemeral: true });
+        }
     },
 };

@@ -31,6 +31,19 @@ module.exports = {
                 },
             ],
         },
+        {
+            name: 'prefix',
+            description: 'Set the command prefix.',
+            type: 1, // SUB_COMMAND
+            options: [
+                {
+                    name: 'prefix',
+                    type: 3, // STRING
+                    description: 'The new command prefix',
+                    required: true,
+                },
+            ],
+        },
     ],
     async execute(interactionOrMessage) {
         const member = interactionOrMessage.member;
@@ -58,6 +71,13 @@ module.exports = {
                 data: { mutedRole: role.id },
             });
             interactionOrMessage.reply({ content: `Muted role set to ${role}.` });
+        } else if (subcommand === 'prefix') {
+            const prefix = interactionOrMessage.options.getString('prefix');
+            await prisma.guild.update({
+                where: { id: guildId },
+                data: { prefix },
+            });
+            interactionOrMessage.reply({ content: `Command prefix set to \`${prefix}\`.` });
         }
     },
 };

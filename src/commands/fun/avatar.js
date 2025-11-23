@@ -11,8 +11,8 @@ module.exports = {
             required: false,
         },
     ],
-    execute(interactionOrMessage) {
-        const user = interactionOrMessage.options.getUser('user') || interactionOrMessage.user;
+    execute(interactionOrMessage, args) {
+        const user = interactionOrMessage.options ? interactionOrMessage.options.getUser('user') || interactionOrMessage.user : interactionOrMessage.mentions.users.first() || interactionOrMessage.author;
         const embed = new EmbedBuilder()
             .setTitle(`${user.username}\'s Avatar`)
             .setImage(user.displayAvatarURL({ dynamic: true, size: 256 }));

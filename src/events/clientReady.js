@@ -1,8 +1,8 @@
 module.exports = {
-    name: 'ready',
+    name: 'clientReady',
     once: true,
     execute(client) {
-        console.log(`Ready! Logged in as ${client.user.tag}`);
+        console.log(`clientReady! Logged in as ${client.user.tag}`);
         client.commandHandler.registerSlashCommands(client);
     },
 };

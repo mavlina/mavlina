@@ -9,8 +9,8 @@ module.exports = {
             required: true,
         },
     ],
-    execute(interactionOrMessage) {
-        const thing = interactionOrMessage.options.getString('thing');
+    execute(interactionOrMessage, args) {
+        const thing = interactionOrMessage.options ? interactionOrMessage.options.getString('thing') : args.join(' ');
         const rating = Math.floor(Math.random() * 11);
         interactionOrMessage.reply(`I rate **${thing}** a **${rating}/10**.`);
     },

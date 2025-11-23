@@ -5,12 +5,12 @@ const { getGuildSettings } = require('../utils/guild');
 class CommandHandler {
     constructor() {
         this.commands = new Map();
-        this.prefix = '!';
         this.loadCommands();
     }
 
     loadCommands() {
         const commandPath = path.join(__dirname, '../commands');
+        let commandCount = 0;
         const load = (dir) => {
             const files = fs.readdirSync(dir);
             for (const file of files) {
@@ -23,11 +23,12 @@ class CommandHandler {
                     const category = path.basename(dir);
                     command.category = category;
                     this.commands.set(command.name, command);
-                    console.log(`Loaded command: ${command.name} (category: ${category})`);
+                    commandCount++;
                 }
             }
         };
         load(commandPath);
+        console.log(`Loaded ${commandCount} commands.`);
     }
 
     async registerSlashCommands(client) {
@@ -66,22 +67,26 @@ class CommandHandler {
     }
 
     async handleMessage(message) {
-        if (!message.content.startsWith(this.prefix) || message.author.bot) return;
+        if (message.author.bot) return;
 
-        const args = message.content.slice(this.prefix.length).trim().split(/ +/);
+        const settings = await getGuildSettings(message.guild.id);
+        const prefix = settings.prefix;
+
+        if (!message.content.startsWith(prefix)) return;
+
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
 
         const command = this.commands.get(commandName);
 
         if (!command) return;
 
-        const settings = await getGuildSettings(message.guild.id);
         if (settings.disabledModules.includes(command.category) || settings.disabledCommands.includes(command.name)) {
             return message.reply({ content: 'This command is disabled on this server.' });
         }
 
         try {
-            command.execute(message);
+            command.execute(message, args);
         } catch (error) {
             console.error(error);
             message.reply('There was an error while executing this command!');

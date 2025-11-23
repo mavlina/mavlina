@@ -9,8 +9,8 @@ module.exports = {
             required: true,
         },
     ],
-    execute(interactionOrMessage) {
-        const text = interactionOrMessage.options.getString('text');
+    execute(interactionOrMessage, args) {
+        const text = interactionOrMessage.options ? interactionOrMessage.options.getString('text') : args.join(' ');
         const reversedText = text.split('').reverse().join('');
         interactionOrMessage.reply(reversedText);
     },
